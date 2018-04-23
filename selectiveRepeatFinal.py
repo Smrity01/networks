@@ -1,9 +1,65 @@
+'''
+Program         : Selective Repeat Protocol
+'''
+
+# Importing necessary libraries
 from tkinter import *
 import time
             
+# -----------------------------------------------------------------------------
+# Functions Definitions
 def draw_frame(x1,x2,index,color):
+    '''
+    Drawing a rectangular frame to show the data packet.
+
+    Parameters
+    ----------
+    x1 : dtype - int, x1 coordinate.
+    x2 : dtype - int, x2 coordinate.
+    index : dtype - int, parameter for y coordinate.
+    color : dtype - string, the color of the rectangle.
+    
+
+    Returns
+    -------
+    dtype - canvas object,a rectangle which is used to display the data packet.
+
+    Description
+    -----------
+    draw_frame function description.
+
+    Approach
+    --------
+    member function of canvas module is used to draw a rectangle.
+    '''
     return canvas.create_rectangle(x1,100+index,x2,150+index,fill=color)
+
+
 def draw_canvas():
+    '''
+    Drawing a canvas for the interface of Go Back N protocol.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+
+    Description
+    -----------
+    draw_canvas function description.
+
+    Approach
+    --------
+    Firstly, we made the initial frames to be sent to the receiver side. The newly created
+    frames are at sender side now, before the working of the protocol. Once the protocol
+    begins to work, the frames begin to send according to the Selective Repeat Algorithm
+    member function of canvas module is used to draw a rectangle.
+    '''
+    
+    # Creating the frames.
     frame1 = draw_frame(50,120,0,'red')
     Rframe1 = draw_frame(795,865,0,'black')
     frame2 = draw_frame(50,120,54,'red')
@@ -24,6 +80,7 @@ def draw_canvas():
     Rframe9 = draw_frame(795,865,450,'black')
     lost = canvas.create_text(450,650,text="",font="Times 20 italic bold")
     
+    # Runner Loop
     for i in range(1,340):
         time.sleep(0.15)
         if (i<26):
@@ -142,7 +199,15 @@ def draw_canvas():
             canvas.move(frame9,-30,0)
             canvas.update()
         
+# -----------------------------------------------------------------------------
+# Main handler block
+'''
+Creating the canvas for the graphical user interface.
+
+Module Used : Tkinter for GUI
+'''
 root = Tk()
+root.title("Selective Repeat")
 canvas = Canvas(root,width = 900,height = 900)
 canvas.pack()
 canvas.create_text(100,50,text="Sender",font="Times 20 italic bold")
@@ -151,3 +216,4 @@ canvas.create_text(800,50,text="Receiver",font="Times 20 italic bold")
 draw_canvas()
 
 root.mainloop()
+# -----------------------------------------------------------------------------
